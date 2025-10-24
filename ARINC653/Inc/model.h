@@ -1,0 +1,6 @@
+#ifndef LIB_ARINC653_INC_MODEL_H
+#define LIB_ARINC653_INC_MODEL_H
+
+
+
+#endif /* LIB_ARINC653_INC_MODEL_H */
