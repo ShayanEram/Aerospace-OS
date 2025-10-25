@@ -35,7 +35,7 @@ typedef struct{
     char name[32];
     SYSTEM_TIME_NS window_ns;
     SYSTEM_TIME_NS offset_ns;
-    int num_process;
+    int num_processes;
     process_t *procs;
     PARTITION_ID_TYPE id;
     pthread_mutex_t mtx;
