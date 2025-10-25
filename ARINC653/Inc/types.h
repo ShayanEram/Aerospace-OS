@@ -58,16 +58,16 @@ typedef enum{
  * Process running or not
  */
 typedef enum{
-    FALSE,
-    TRUE
+    RUN_FALSE,
+    RUN_TRUE
 } RUNNING_TYPE;
 
 /**
  * Partition active or not
  */
 typedef enum{
-    FALSE,
-    TRUE
+    ACTIVE_FALSE,
+    ACTIVE_TRUE
 } ACTIVE_TYPE;
 
 #endif /* LIB_ARINC653_INC_TYPES_H */

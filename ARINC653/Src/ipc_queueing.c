@@ -1,6 +1,7 @@
 #include "ipc_queueing.h"
 
 #include <string.h>
+#include <stdlib.h>
 
 RETURN_CODE_TYPE create_queuing_port(queuing_port_t *qp, const char *name, size_t msg_size, uint32_t capacity, PORT_DIRECTION dir){
     memset(qp, 0, sizeof(*qp));
@@ -11,7 +12,7 @@ RETURN_CODE_TYPE create_queuing_port(queuing_port_t *qp, const char *name, size_
     qp->dir = dir;
     qp->buffer = malloc(capacity * msg_size);
     pthread_mutex_init(&qp->mtx, NULL);
-    pthread_cond_intit(&qp->not_empty, NULL);
+    pthread_cond_init(&qp->not_empty, NULL);
     pthread_cond_init(&qp->not_full, NULL);
 
     return qp->buffer ? RC_OK : RC_NO_MEMORY;

@@ -14,6 +14,6 @@
  * - For each partition:
  *      - wait for offset, activate partion, wait window time, deactivate partition.
  */
-void run_schedular(system_t *sys);
+void run_scheduler(system_t *sys);
 
 #endif /* LIB_ARINC653_INC_SCHEDULER_H */

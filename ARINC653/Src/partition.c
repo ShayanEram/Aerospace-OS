@@ -10,21 +10,21 @@ void partition_init(partition_t *p, const char *name, SYSTEM_TIME_NS window_ns, 
     p->offset_ns = offset_ns;
     pthread_mutex_init(&p->mtx, NULL);
     pthread_cond_init(&p->cv, NULL);
-    p->active = FALSE;
+    p->active = ACTIVE_FALSE;
 }
 
 void partition_set_active(partition_t *p, ACTIVE_TYPE active){
     pthread_mutex_lock(&p->mtx);
     p->active = active;
-    if(active = TRUE) {
-        pthread_cond_broadcaset(&p->mtx);
+    if(active = ACTIVE_TRUE) {
+        pthread_cond_broadcast(&p->cv);
     }
     pthread_mutex_unlock(&p->mtx);
 }
 
 void partition_wait_active(partition_t *p){
     pthread_mutex_lock(&p->mtx);
-    while(p->active = FALSE){
+    while(p->active = ACTIVE_FALSE){
         pthread_cond_wait(&p->cv, &p->mtx);
     }
     pthread_mutex_unlock(&p->mtx);

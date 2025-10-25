@@ -1,5 +1,7 @@
 #include "model.h"
 #include "types.h"
+#include "process.h"
+#include "scheduler.h"
 
 // Custom tasks
 #include "Task1.h"

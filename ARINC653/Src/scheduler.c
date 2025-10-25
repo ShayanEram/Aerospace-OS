@@ -1,5 +1,6 @@
 #include "scheduler.h"
 
+#define _POSIX_C_SOURCE 200809L
 #include <linux/time.h>
 #include <time.h>
 #include <stdio.h>
@@ -19,7 +20,7 @@ static SYSTEM_TIME_NS now_ns(){
 /**
  * Suspends the calling thread until an absolute nanosecond timestamp is reached.
  */
-static void sleep_util_ns(SYSTEM_TIME_NS target_ns){
+static void sleep_until_ns(SYSTEM_TIME_NS target_ns){
     struct timespec ts = {
         .tv_nsec = target_ns / 1000000000ULL,
         .tv_nsec = target_ns % 1000000000ULL
@@ -28,7 +29,7 @@ static void sleep_util_ns(SYSTEM_TIME_NS target_ns){
 }
 
 
-void run_schedular(system_t *sys){
+void run_scheduler(system_t *sys){
     SYSTEM_TIME_NS t0 = now_ns();
 
     while(1)
@@ -47,11 +48,11 @@ void run_schedular(system_t *sys){
 
             // Pre-activate
             sleep_until_ns(win_start);
-            partition_set_active(p, TRUE);
+            partition_set_active(p, ACTIVE_TRUE);
 
             // End of window
-            sleep_untile_ns(win_end);
-            partition_set_active(p, FALSE);
+            sleep_until_ns(win_end);
+            partition_set_active(p, ACTIVE_FALSE);
         }
         sleep_until_ns(frame_end);
     }
