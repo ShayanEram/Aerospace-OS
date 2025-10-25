@@ -23,7 +23,6 @@ typedef struct{
     RUNNING_TYPE running;
 } process_t;
 
-
 /**
  * partition_t: Represents a partition (the ARINC 653 abstraction that groups processes and resources).
  * 
@@ -33,8 +32,15 @@ typedef struct{
  * - Runtime fields: id, pthread_mutex_t, pthread_cond_t, active → simulate partition activation/deactivation and synchronization.
  */
 typedef struct{
-    
-
+    char name[32];
+    SYSTEM_TIME_NS window_ns;
+    SYSTEM_TIME_NS offset_ns;
+    int num_process;
+    process_t *procs;
+    PARTITION_ID_TYPE id;
+    pthread_mutex_t mtx;
+    pthread_cond_t cv;
+    ACTIVE_TYPE active;
 } partition_t;
 
 /**
@@ -44,9 +50,9 @@ typedef struct{
  * - num_partitions / parts: array of partitions scheduled within the major frame.
  */
 typedef struct{
-
+    SYSTEM_TIME_NS major_frame_ns;
+    int num_partitions;
+    partition_t *parts;
 } system_t;
-
-
 
 #endif /* LIB_ARINC653_INC_MODEL_H */

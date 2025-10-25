@@ -42,7 +42,9 @@ typedef enum {
     DIR_DESTINATION = 1
 } PORT_DIRECTION; 
 
-
+/**
+ * Process priority list
+ */
 typedef enum{
     VERY_LOW  = 1,
     LOW       = 2,
@@ -52,10 +54,20 @@ typedef enum{
 
 } PRIORITY_TYPE;
 
-
+/**
+ * Process running or not
+ */
 typedef enum{
     FALSE,
     TRUE
 } RUNNING_TYPE;
+
+/**
+ * Partition active or not
+ */
+typedef enum{
+    FALSE,
+    TRUE
+} ACTIVE_TYPE;
 
 #endif /* LIB_ARINC653_INC_TYPES_H */

@@ -3,7 +3,17 @@
   "cmake.buildDirectory": "${workspaceFolder}/build",
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "files.associations": {
-        "arinc429.h": "c",
-        "task1.h": "c"
-    }
+    "arinc429.h": "c",
+    "task1.h": "c",
+    "partition.h": "c",
+    "string.h": "c",
+    "model.h": "c",
+    "time_t.h": "c",
+    "stdio.h": "c",
+    "scheduler.h": "c",
+    "types.h": "c",
+    "stdatomic.h": "c",
+    "time.h": "c",
+    "process.h": "c"
+  }
 }
