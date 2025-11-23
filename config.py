@@ -136,6 +136,9 @@ def main():
         for proc in part["processes"]:
             make_stub(base_dir, part, proc)
 
+    # Generate partitions.cmake
+    write_partitions_cmake(base_dir, partitions)
+
     # Generate main.c
     write_main(base_dir, system, partitions)
 
