@@ -44,28 +44,35 @@ target_include_directories(milstd1553b PUBLIC
 )
 
 # -----------------------------
+# Generate Runner + Partitions
+# -----------------------------
+add_custom_command(
+    OUTPUT ${CMAKE_SOURCE_DIR}/Runner/main.c ${CMAKE_SOURCE_DIR}/Runner/partitions.cmake
+    COMMAND ${CMAKE_COMMAND} -E echo "Generating runner and partition stubs..."
+    # COMMAND python ${CMAKE_SOURCE_DIR}/config.py
+    #         ${CMAKE_SOURCE_DIR}/config.yaml
+    #         ${CMAKE_SOURCE_DIR}
+    # DEPENDS ${CMAKE_SOURCE_DIR}/config.yaml
+    COMMENT "Running config.py to generate Runner/main.c and partition stubs"
+)
+
+# -----------------------------
 # User Partitions + Runner
 # -----------------------------
-file(GLOB PARTITION_SRC 
-    Partitions/Partition1/Process1/Src/*.c
-    Partitions/Partition2/Process1/Src/*.c
-)
-file(GLOB RUNNER_SRC 
-    Runner/*.c
-)
+include(${CMAKE_SOURCE_DIR}/Runner/partitions.cmake)
+
+file(GLOB RUNNER_SRC ${CMAKE_SOURCE_DIR}/Runner/*.c)
+
 add_executable(${PROJECT_NAME}
-    ${PARTITION_SRC}
+    ${PARTITION_SRCS}
     ${RUNNER_SRC}
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC
-    Partitions/Partition1/Process1/Inc
-    Partitions/Partition2/Process1/Inc
-)
+target_include_directories(${PROJECT_NAME} PUBLIC ${PARTITION_INCS})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE 
-    arinc653 
-    arinc429 
-    arinc664 
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    arinc653
+    arinc429
+    arinc664
     milstd1553b
 )
