@@ -1,0 +1,9 @@
+partitions:
+  - name: Partition1
+    processes:
+      - name: Process1
+        entry: task1
+  - name: Partition2
+    processes:
+      - name: Process1
+        entry: task2
