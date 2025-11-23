@@ -2,7 +2,7 @@ system:
   major_frame_ns: 100000000
   partitions:
     - name: Partition1
-      duration_ns: 50000000
+      duration_ns: 30000000
       offset_ns: 0
       processes:
         - name: Process1
@@ -10,12 +10,23 @@ system:
           period_ns: 100000000
           timecap_ns: 20000000
           priority: 10
+
     - name: Partition2
-      duration_ns: 50000000
-      offset_ns: 50000000
+      duration_ns: 30000000
+      offset_ns: 30000000
       processes:
         - name: Process1
           entry: task2
           period_ns: 100000000
-          timecap_ns: 40000000
+          timecap_ns: 25000000
           priority: 9
+
+    - name: Partition3
+      duration_ns: 40000000
+      offset_ns: 60000000
+      processes:
+        - name: Process1
+          entry: task3
+          period_ns: 100000000
+          timecap_ns: 30000000
+          priority: 8

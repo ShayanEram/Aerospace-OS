@@ -2,9 +2,11 @@
 set(PARTITION_SRCS
     ${CMAKE_SOURCE_DIR}/Partitions/Partition1/Process1/Src/task1.c
     ${CMAKE_SOURCE_DIR}/Partitions/Partition2/Process1/Src/task2.c
+    ${CMAKE_SOURCE_DIR}/Partitions/Partition3/Process1/Src/task3.c
 )
 
 set(PARTITION_INCS
     ${CMAKE_SOURCE_DIR}/Partitions/Partition1/Process1/Inc
     ${CMAKE_SOURCE_DIR}/Partitions/Partition2/Process1/Inc
+    ${CMAKE_SOURCE_DIR}/Partitions/Partition3/Process1/Inc
 )
