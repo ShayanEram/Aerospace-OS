@@ -18,6 +18,7 @@
     "task2.h": "c",
     "stdbool.h": "c",
     "stdint.h": "c",
-    "milstd1553b.h": "c"
+    "milstd1553b.h": "c",
+    "ipc_sampling.h": "c"
   }
 }

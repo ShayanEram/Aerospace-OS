@@ -3,10 +3,10 @@
     {
       "name": "Linux",
       "includePath": [
-        "${workspaceFolder}/ARINC429/Inc",
-        "${workspaceFolder}/ARINC653/Inc",
-        "${workspaceFolder}/ARINC664/Inc",
-        "${workspaceFolder}/MILSTD1553B/Inc",
+        "${workspaceFolder}/RTOS/ARINC653/Inc",
+        "${workspaceFolder}/Comm/ARINC429/Inc",
+        "${workspaceFolder}/Comm/ARINC664/Inc",
+        "${workspaceFolder}/Comm/MILSTD1553B/Inc",
         "${workspaceFolder}/Partitions/Inc",
         "${workspaceFolder}/**"
       ],

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <linux/time.h>
 #include <time.h>
+#include <stdlib.h>
 
 RETURN_CODE_TYPE create_sampling_port(sampling_port_t *sp, const char *name, size_t msg_size, PORT_DIRECTION dir) {
     memset(sp, 0, sizeof(*sp));

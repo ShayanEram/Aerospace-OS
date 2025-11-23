@@ -3,6 +3,7 @@
 #include <linux/time.h>
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
  * Returns current monotonic time in nanoseconds.
