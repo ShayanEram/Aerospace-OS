@@ -27,6 +27,78 @@ def make_stub(base_dir, partition, process):
             f.write(f"void {entry}(void);\n\n")
             f.write(f"#endif // {guard}\n")
 
+def write_main(base_dir, system, partitions):
+    runner_dir = os.path.join(base_dir, "Runner")
+    os.makedirs(runner_dir, exist_ok=True)
+    main_path = os.path.join(runner_dir, "main.c")
+
+    with open(main_path, "w") as f:
+        # Includes
+        f.write('#include "model.h"\n')
+        f.write('#include "types.h"\n')
+        f.write('#include "process.h"\n')
+        f.write('#include "scheduler.h"\n\n')
+
+        # Custom tasks
+        for part in partitions:
+            for proc in part["processes"]:
+                f.write(f'#include "{proc["entry"]}.h"\n')
+        f.write("\n")
+
+        # extern declarations
+        for part in partitions:
+            for proc in part["processes"]:
+                f.write(f"extern void {proc['entry']}(void);\n")
+        f.write("\n")
+
+        # Partition count
+        f.write(f"#define NUMBER_OF_PARTITIONS {len(partitions)}\n\n")
+
+        # main function
+        f.write("int main() \n{\n")
+        f.write("    system_t sys = {\n")
+        f.write(f"        .major_frame_ns = {system['major_frame_ns']}ULL,\n")
+        f.write(f"        .num_partitions = {len(partitions)}\n")
+        f.write("    };\n\n")
+
+        f.write(f"    partition_t parts[NUMBER_OF_PARTITIONS];\n")
+        for i, part in enumerate(partitions):
+            f.write(f'    partition_init(&parts[{i}], "{part["name"]}", {part["duration_ns"]}ULL, {part["offset_ns"]}ULL);\n')
+        f.write("\n")
+
+        # Process definitions
+        for i, part in enumerate(partitions):
+            for j, proc in enumerate(part["processes"]):
+                f.write(f"    process_t procs{i}_{j}[1] = {{\n")
+                f.write("        {\n")
+                f.write(f'            .name = "{proc["name"]}",\n')
+                f.write(f"            .period_ns = {proc['period_ns']}ULL,\n")
+                f.write(f"            .timecap_ns = {proc['timecap_ns']}ULL,\n")
+                f.write(f"            .priority = {proc['priority']},\n")
+                f.write(f"            .entry_point = {proc['entry']}\n")
+                f.write("        }\n")
+                f.write("    };\n")
+        f.write("\n")
+
+        # Attach processes
+        for i, part in enumerate(partitions):
+            for j, proc in enumerate(part["processes"]):
+                f.write(f"    parts[{i}].procs = procs{i}_{j};\n")
+                f.write(f"    parts[{i}].num_processes = 1;\n")
+                f.write(f"    parts[{i}].id = {i};\n")
+        f.write("    sys.parts = parts;\n\n")
+
+        # Start processes
+        f.write("    for (int i = 0; i < sys.num_partitions; ++i){\n")
+        f.write("        for (int j = 0; j < sys.parts[i].num_processes; ++j){\n")
+        f.write("            start_process(&sys.parts[i].procs[j], &sys.parts[i]);\n")
+        f.write("        }\n")
+        f.write("    }\n\n")
+
+        # Run scheduler
+        f.write("    run_scheduler(&sys);\n")
+        f.write("    return 0;\n}\n")
+
 def main():
     if len(sys.argv) != 3:
         print("Usage: python config.py <config.yaml> <base_dir>")
@@ -36,9 +108,16 @@ def main():
     with open(config_file) as f:
         config = yaml.safe_load(f)
 
-    for part in config["partitions"]:
+    system = config["system"]
+    partitions = system["partitions"]
+
+    # Generate stubs
+    for part in partitions:
         for proc in part["processes"]:
             make_stub(base_dir, part, proc)
+
+    # Generate main.c
+    write_main(base_dir, system, partitions)
 
 if __name__ == "__main__":
     main()

@@ -1,9 +1,21 @@
-partitions:
-  - name: Partition1
-    processes:
-      - name: Process1
-        entry: task1
-  - name: Partition2
-    processes:
-      - name: Process1
-        entry: task2
+system:
+  major_frame_ns: 100000000
+  partitions:
+    - name: Partition1
+      duration_ns: 50000000
+      offset_ns: 0
+      processes:
+        - name: Process1
+          entry: task1
+          period_ns: 100000000
+          timecap_ns: 20000000
+          priority: 10
+    - name: Partition2
+      duration_ns: 50000000
+      offset_ns: 50000000
+      processes:
+        - name: Process1
+          entry: task2
+          period_ns: 100000000
+          timecap_ns: 40000000
+          priority: 9
