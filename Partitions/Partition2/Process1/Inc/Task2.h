@@ -1,6 +1,0 @@
-#ifndef PARTITIONS_INC_TASK2_H
-#define PARTITIONS_INC_TASK2_H
-
-void task2(void);
-
-#endif // PARTITIONS_INC_TASK2_H

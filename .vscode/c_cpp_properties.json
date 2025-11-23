@@ -7,7 +7,8 @@
         "${workspaceFolder}/Comm/ARINC429/Inc",
         "${workspaceFolder}/Comm/ARINC664/Inc",
         "${workspaceFolder}/Comm/MILSTD1553B/Inc",
-        "${workspaceFolder}/Partitions/Inc",
+        "${workspaceFolder}/Partitions/Partition1/Process1/Inc",
+        "${workspaceFolder}/Partitions/Partition2/Process1/Inc",
         "${workspaceFolder}/**"
       ],
       "defines": [],

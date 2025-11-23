@@ -4,8 +4,8 @@
 #include "scheduler.h"
 
 // Custom tasks
-#include "Task1.h"
-#include "Task2.h"
+#include "task1.h"
+#include "task2.h"
 
 // Misra C
 extern void task1(void);

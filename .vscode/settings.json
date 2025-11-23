@@ -1,6 +1,7 @@
 {
   "cmake.sourceDirectory": "${workspaceFolder}",
   "cmake.buildDirectory": "${workspaceFolder}/build",
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "files.associations": {
     "arinc429.h": "c",
