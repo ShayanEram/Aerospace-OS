@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 // ARINC 429 word representation
 typedef struct {
@@ -13,14 +14,13 @@ typedef struct {
     bool parity;         // 1 bit
 } ARINC429_Word;
 
-/**
- * Encode to arinc-429
- */
-uint32_t arinc429_encode(ARINC429_Word w);
-
-/**
- * Decode from arinc-429
- */
-ARINC429_Word arinc429_decode(uint32_t raw);
+uint32_t arinc429_build(uint8_t label, uint8_t sdi, uint32_t data, uint8_t ssm);
+ARINC429_Word arinc429_parse(uint32_t raw);
+int32_t arinc429_decode_bnr(uint32_t data);
+uint32_t arinc429_encode_bnr(int32_t value);
+int32_t arinc429_decode_bcd(uint32_t data);
+uint32_t arinc429_encode_bcd(int value);
+bool arinc429_get_discrete(uint32_t data, int bit);
+uint32_t arinc429_set_discrete(uint32_t data, int bit, bool val);
 
 #endif /* LIB_ARINC429_INC_ARINC429_H */

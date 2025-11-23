@@ -15,6 +15,9 @@
     "stdatomic.h": "c",
     "time.h": "c",
     "process.h": "c",
-    "task2.h": "c"
+    "task2.h": "c",
+    "stdbool.h": "c",
+    "stdint.h": "c",
+    "milstd1553b.h": "c"
   }
 }
