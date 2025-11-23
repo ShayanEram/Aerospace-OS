@@ -1,5 +1,6 @@
 #include "arinc664.h"
 
+__attribute__((weak))
 AFDX_Frame afdx_build(uint16_t vl_id, uint8_t seq_num, const uint8_t* data, uint16_t len) {
     AFDX_Frame f;
     f.vl_id = vl_id;
@@ -12,6 +13,7 @@ AFDX_Frame afdx_build(uint16_t vl_id, uint8_t seq_num, const uint8_t* data, uint
 }
 
 // Serialize to raw buffer for sending over TCP/UDP
+__attribute__((weak))
 uint16_t afdx_serialize(const AFDX_Frame* f, uint8_t* out_buf) {
     uint16_t offset = 0;
     out_buf[offset++] = (f->vl_id >> 8) & 0xFF;
@@ -25,6 +27,7 @@ uint16_t afdx_serialize(const AFDX_Frame* f, uint8_t* out_buf) {
     return offset;
 }
 
+__attribute__((weak))
 AFDX_Frame afdx_deserialize(const uint8_t* buf, uint16_t len) {
     AFDX_Frame f;
     f.vl_id = (buf[0] << 8) | buf[1];
@@ -37,6 +40,7 @@ AFDX_Frame afdx_deserialize(const uint8_t* buf, uint16_t len) {
     return f;
 }
 
+__attribute__((weak))
 bool afdx_validate_seq(uint8_t expected, uint8_t incoming) {
     return ((expected + 1) % AFDX_SEQ_MOD) == incoming;
 }

@@ -8,6 +8,7 @@ static bool compute_parity(uint16_t word) {
     return (ones % 2 == 0); // odd parity → parity bit must be 1 if ones are even
 }
 
+__attribute__((weak))
 uint16_t mil1553_encode_command(MIL1553_Command c) {
     uint16_t w = 0;
     w |= (c.rt_addr & 0x1F) << 11;
@@ -17,6 +18,7 @@ uint16_t mil1553_encode_command(MIL1553_Command c) {
     return w;
 }
 
+__attribute__((weak))
 MIL1553_Command mil1553_decode_command(uint16_t w) {
     MIL1553_Command c;
     c.rt_addr    = (w >> 11) & 0x1F;
@@ -26,6 +28,7 @@ MIL1553_Command mil1553_decode_command(uint16_t w) {
     return c;
 }
 
+__attribute__((weak))
 uint16_t mil1553_encode_status(MIL1553_Status s) {
     uint16_t w = 0;
     w |= (s.rt_addr & 0x1F) << 11;
@@ -38,6 +41,7 @@ uint16_t mil1553_encode_status(MIL1553_Status s) {
     return w;
 }
 
+__attribute__((weak))
 MIL1553_Status mil1553_decode_status(uint16_t w) {
     MIL1553_Status s = {0};
     s.rt_addr         = (w >> 11) & 0x1F;

@@ -33,6 +33,7 @@ ARINC429_Word arinc429_parse(uint32_t raw) {
     return w;
 }
 
+__attribute__((weak))
 int32_t arinc429_decode_bnr(uint32_t data) {
     // 19-bit two's complement
     if (data & (1u << 18)) { // sign bit
@@ -41,10 +42,12 @@ int32_t arinc429_decode_bnr(uint32_t data) {
     return (int32_t)data;
 }
 
+__attribute__((weak))
 uint32_t arinc429_encode_bnr(int32_t value) {
     return (uint32_t)(value & 0x7FFFF);
 }
 
+__attribute__((weak))
 int32_t arinc429_decode_bcd(uint32_t data) {
     int result = 0;
     int multiplier = 1;
@@ -56,6 +59,7 @@ int32_t arinc429_decode_bcd(uint32_t data) {
     return result;
 }
 
+__attribute__((weak))
 uint32_t arinc429_encode_bcd(int value) {
     uint32_t data = 0;
     for (int i = 0; i < 5 && value > 0; i++) {
@@ -66,10 +70,12 @@ uint32_t arinc429_encode_bcd(int value) {
     return data & 0x7FFFF;
 }
 
+__attribute__((weak))
 bool arinc429_get_discrete(uint32_t data, int bit) {
     return (data >> bit) & 1;
 }
 
+__attribute__((weak))
 uint32_t arinc429_set_discrete(uint32_t data, int bit, bool val) {
     if (val) data |= (1u << bit);
     else     data &= ~(1u << bit);
